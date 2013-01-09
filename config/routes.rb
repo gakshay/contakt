@@ -1,4 +1,6 @@
 ContaktDemo::Application.routes.draw do
+  devise_for :users
+
   resources :addresses
   
   root :to => "home#index"
