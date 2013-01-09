@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130109201443) do
     t.string   "country"
     t.integer  "latitude"
     t.integer  "longitude"
+    t.integer  "user_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20130109201443) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
