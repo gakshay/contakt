@@ -1,9 +1,9 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1>Locations <%#=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%= "#{@user.company_name} Contact" %></h1>
 </div>
 
-<% @addresses.each do |address| %>
+<% @addresses.each_with_index do |address, index| %>
 <div class="address well span4" style="position:relative;">
   <div style="position:absolute; right: 10px;">
     
@@ -21,7 +21,7 @@
     <% end %>
   </div>
   
-  <a href="<%= address_path(address) %>" >
+  <a href=<%= "#{@user.name}/address/#{index+1}" %> >
     <span><%= address.street_address %></span>
     <span><%= address.street_address_two %></span><br>
     <span><%= address.city %></span>

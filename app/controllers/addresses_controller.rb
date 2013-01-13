@@ -1,37 +1,33 @@
 class AddressesController < ApplicationController
-  before_filter :authenticate_user!, :except => :index
+  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :find_user_addresses, :only => [:index, :show]
   
   # GET /addresses
   # GET /addresses.json
   def index
-    unless params[:name].blank?
-      user = User.find_by_name(params[:name])
-      @addresses = user.addresses unless user.blank?
-    else
-      @addresses = current_user.addresses if user_signed_in?
-    end
-    unless @addresses.blank?
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @addresses }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to root_url }# index.html.erb
-        format.json { head :no_content }
-      end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @addresses }
     end
   end
 
   # GET /addresses/1
   # GET /addresses/1.json
   def show
-    @address = Address.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @address }
+    id = params[:id].to_i - 1
+    if (id < 0) or (id > @addresses.length)
+      respond_to do |format|
+        format.html { redirect_to "/#{@user.name}", alert: 'Address was not found.'}
+        format.json { render json: @address }
+      end
+    else
+      @address = @addresses[id]
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @address }
+      end
     end
+    
   end
 
   # GET /addresses/new
@@ -92,4 +88,21 @@ class AddressesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def find_user_addresses
+    unless params[:name].blank?
+      @user = User.find_by_name(params[:name])
+      @addresses = @user.addresses unless @user.blank?
+      if @user.blank?
+        respond_to do |format|
+          format.html { redirect_to root_url }# index.html.erb
+          format.json { head :no_content }
+        end
+      end
+    end
+  end
+  
+  
 end

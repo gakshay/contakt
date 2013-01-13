@@ -1,10 +1,11 @@
 ContaktDemo::Application.routes.draw do
 
-  resources :addresses
+  resources :addresses, :only => [:destroy, :new, :create, :edit, :update]
   
   root :to => "home#index"
   
   get '/:name' => 'addresses#index'
+  get '/:name/address/:id' => 'addresses#show'
   
   #devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
   devise_for :users, skip: :registrations, path_names: { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
