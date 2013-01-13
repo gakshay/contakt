@@ -44,3 +44,17 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_address_path,
             :class => 'btn btn-primary' %>
+
+
+
+
+# backbone
+
+<div id="addresses"></div>
+<script type="text/javascript">
+  $(function() {
+    //ContaktDemo is the app name
+    window.router = new ContaktDemo.Routers.AddressesRouter({addresses: <%= @addresses.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
+</script>

@@ -6,9 +6,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :company_name, :company_url, :name
   # attr_accessible :title, :body
   
-  has_one :address
+  validates_presence_of :company_name, :company_url, :name
+  validates_format_of :company_url, :with => URI::regexp(%w(http https))
+  validates_format_of :name, :with => /^[a-zA-Z0-9]+$/, :message => "should be alphanumeric"
+  
+  has_many :addresses
   
 end

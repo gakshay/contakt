@@ -51,9 +51,9 @@
           <a class="brand" href="#">ContaktDemo</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "About Us", new_address_path  %></li>
+              <li><%= link_to "How it works?", "/path2"  %></li>
+              <li><%= link_to "Join Now", "/path3"  %></li>
             </ul>
             <ul class="nav pull-right" >
               <%= render 'devise/menu/registration_items' %>
@@ -66,13 +66,12 @@
         
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <!-- <li class="nav-header">Sidebar</li> -->
+              <li><%= link_to "New Address", new_address_path  %></li>
+              <li><%= link_to "All Address", addresses_url  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

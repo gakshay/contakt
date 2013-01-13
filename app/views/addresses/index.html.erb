@@ -1,8 +1,31 @@
-<div id="addresses"></div>
-<script type="text/javascript">
-  $(function() {
-    //ContaktDemo is the app name
-    window.router = new ContaktDemo.Routers.AddressesRouter({addresses: <%= @addresses.to_json.html_safe -%>});
-    Backbone.history.start();
-  });
-</script>
+<%- model_class = Address -%>
+<div class="page-header">
+  <h1>Locations <%#=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+
+<% @addresses.each do |address| %>
+<div class="address well span4" style="position:relative;">
+  <div style="position:absolute; right: 10px;">
+    <%= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
+    edit_address_path(address)%>
+    <%= link_to 'x',
+    address_path(address),
+    :method => :delete,
+    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+    :class => 'btn btn-mini btn-danger' %>
+  </div>
+  
+  <a href="<%= address_path(address) %>" >
+    <span><%= address.street_address %></span>
+    <span><%= address.street_address_two %></span><br>
+    <span><%= address.city %></span>
+    <span><%= address.state %></span><br>
+    <span><%= address.country %></span>
+    <span><%= address.zipcode %></span><br>
+  </a>
+  
+</div>
+
+<% end %>
+
+<div class="clear" style="clear:both;"></div>

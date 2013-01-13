@@ -4,8 +4,20 @@ ContaktDemo::Application.routes.draw do
   
   root :to => "home#index"
   
-  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
+  get '/:name' => 'addresses#index'
   
+  #devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
+  devise_for :users, skip: :registrations, path_names: { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
+  devise_scope :user do
+    resource :registration,
+      only: [:new, :create, :edit, :update],
+      path: 'users',
+      path_names: { new: 'register' },
+      controller: 'devise/registrations',
+      as: :user_registration do
+      get :cancel
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

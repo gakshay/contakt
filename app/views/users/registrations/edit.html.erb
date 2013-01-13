@@ -1,0 +1,89 @@
+<h2>Edit Profile</h2>
+<hr>
+<br>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :method => :put }) do |f| %>
+  
+  <% unless resource.errors.blank? %>
+    <div class="alert alert-error"><%= devise_error_messages! %></div>
+	<% end %>
+  
+  
+  <div class="control-group">
+    <%= f.label :company_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :company_name, :class => 'text_field', :placeholder => "Your company name" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%#= f.label :name, :class => 'control-label' %>
+    <div class="input-prepend">
+      <span class="add-on">http://www.contaktus.com/</span>
+      <%= f.text_field :name, :class => 'text_field', :placeholder => "Company handle" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :company_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :company_url, :class => 'text_field', :placeholder => "http://www.companyname.com" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.email_field :email, :class => 'email_field', :placeholder => "Official E-Mail address" %>
+    </div>
+  </div>
+  
+  
+  <% if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+  
+  <br>
+  
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, :class => 'password_field', :placeholder => "minimum 6 characters" %>
+      <br><i>(Change password or leave blank)</i>
+      
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :password_confirmation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :class => 'password_field' %>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  
+  
+  <div class="control-group">
+    <%= f.label :current_password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :current_password, :class => 'password_field' %>
+      <br><i>(we need your current password to confirm your changes)</i>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Update Account", :class => "btn center" %>
+    </div>
+  </div>
+  
+<% end %>
+  
+
+<!-- <h3>Cancel my account</h3> -->
+
+<!-- <p>Unhappy? <%#= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p> -->
+
+<%= link_to "Back", :back %>
