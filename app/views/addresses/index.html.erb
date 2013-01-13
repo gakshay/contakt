@@ -6,13 +6,19 @@
 <% @addresses.each do |address| %>
 <div class="address well span4" style="position:relative;">
   <div style="position:absolute; right: 10px;">
-    <%= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
-    edit_address_path(address)%>
-    <%= link_to 'x',
-    address_path(address),
-    :method => :delete,
-    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-    :class => 'btn btn-mini btn-danger' %>
+    
+    <% if can? :update, address %>
+      <%= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
+      edit_address_path(address)%>
+    <% end %>
+    
+    <% if can? :destroy, address %>
+      <%= link_to 'x',
+      address_path(address),
+      :method => :delete,
+      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+      :class => 'btn btn-mini btn-danger' %>
+    <% end %>
   </div>
   
   <a href="<%= address_path(address) %>" >

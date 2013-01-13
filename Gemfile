@@ -6,6 +6,7 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'devise'
+gem 'cancan'
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'libv8', '~> 3.11.8'

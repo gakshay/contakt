@@ -18,6 +18,24 @@ ContaktDemo::Application.routes.draw do
       get :cancel
     end
   end
+  
+  
+  resources :home do
+    get :careers, :on => :collection
+    get :product, :on => :collection
+    get :about_us, :on => :collection
+    get :faqs, :on => :collection
+    get :contact_us, :on => :collection
+    post :thank_you, :on => :collection
+    get :foo, :on => :collection
+  end
+  
+  match "about_us" => "home#about_us"
+  match "careers" => "home#careers"
+  match "product" => "home#product"
+  match "faqs" => "home#faqs"
+  match "contact_us" => "home#contact_us"
+  match "thank_you" => "home#thank_you"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

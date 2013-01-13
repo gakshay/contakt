@@ -4,11 +4,22 @@ class AddressesController < ApplicationController
   # GET /addresses
   # GET /addresses.json
   def index
-    @addresses = current_user.addresses if user_signed_in?
-    @addresses = User.find_by_name(params[:name]).addresses unless user_signed_in?
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @addresses }
+    unless params[:name].blank?
+      user = User.find_by_name(params[:name])
+      @addresses = user.addresses unless user.blank?
+    else
+      @addresses = current_user.addresses if user_signed_in?
+    end
+    unless @addresses.blank?
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @addresses }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_url }# index.html.erb
+        format.json { head :no_content }
+      end
     end
   end
 
