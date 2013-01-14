@@ -6,6 +6,7 @@ ContaktDemo::Application.routes.draw do
   
   get '/:name' => 'addresses#index'
   get '/:name/address/:id' => 'addresses#show'
+  get '/home/dashboard' => 'home#show'
   
   #devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
   devise_for :users, skip: :registrations, path_names: { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }

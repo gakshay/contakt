@@ -14,5 +14,14 @@ class User < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-zA-Z0-9]+$/, :message => "should be alphanumeric"
   
   has_many :addresses
+  has_many :configurations
+  has_many :services, :through => :configurations
+  
+  after_create :enable_default_configuration
+  
+  
+  def enable_default_configuration
+    
+  end
   
 end
