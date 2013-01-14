@@ -1,12 +1,15 @@
 ContaktDemo::Application.routes.draw do
 
-  resources :addresses, :only => [:destroy, :new, :create, :edit, :update]
+  resources :addresses, :only => [:destroy, :new, :create, :edit, :update] do
+    post :thank_you, :on => :collection
+  end
   resources :configurations, :only => [:edit, :update]
   
   root :to => "home#index"
   
   get '/:name' => 'addresses#index'
   get '/:name/address/:id' => 'addresses#show'
+  post '/:name/thank_you' => 'addresses#thank_you'
   get '/home/dashboard' => 'home#show'
   
   #devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
@@ -29,7 +32,6 @@ ContaktDemo::Application.routes.draw do
     get :about_us, :on => :collection
     get :faqs, :on => :collection
     get :contact_us, :on => :collection
-    post :thank_you, :on => :collection
     get :foo, :on => :collection
   end
   
@@ -38,7 +40,6 @@ ContaktDemo::Application.routes.draw do
   match "product" => "home#product"
   match "faqs" => "home#faqs"
   match "contact_us" => "home#contact_us"
-  match "thank_you" => "home#thank_you"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

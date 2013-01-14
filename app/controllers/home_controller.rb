@@ -14,4 +14,5 @@ class HomeController < ApplicationController
       format.json { render json: current_user }
     end
   end
+  
 end

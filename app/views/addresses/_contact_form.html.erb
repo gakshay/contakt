@@ -1,0 +1,57 @@
+<h4>Contact Form </h4>
+<hr>
+<br>
+
+<%= form_for @form, :url => "/#{@user.name}/thank_you", :html => { :class => 'form-horizontal' } do |f| %>
+  
+  <% unless @form.errors.blank? %>
+  <div class="alert alert-error">
+    <% @form.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  </div>
+  <% end %>
+  
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field', :placeholder => "Enter your full name" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :mobile, :class => 'control-label' %>
+    <div class="controls">
+      <div class="input-prepend">
+        <span class="add-on">+</span>
+        <%= f.text_field :mobile, :class => 'text_field span8', :placeholder => "Mobile Number" %>
+      </div>    
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field', :placeholder => "Email Address" %>
+    </div>
+  </div>
+  
+  
+  <div class="control-group">
+    <%= f.label :message, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :message, :class => 'text_area', :placeholder => "Enter your message", :rows => 4 %>
+    </div>
+  </div>
+  
+  <%= f.hidden_field :user_id, :class => 'text_field', :value => @user.id %>
+  
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+<br>

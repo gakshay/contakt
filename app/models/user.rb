@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   
   after_create :enable_default_configurations
   
+  def contact_form
+    self.services.where("name = ? and status = ?", "contact_form", true)
+  end
+  
   
   def enable_default_configurations
     services = Service.select("id")

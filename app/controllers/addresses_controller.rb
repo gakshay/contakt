@@ -1,10 +1,11 @@
 class AddressesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show]
-  before_filter :find_user_addresses, :only => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :thank_you]
+  before_filter :find_user_addresses, :only => [:index, :show, :thank_you]
   
   # GET /addresses
   # GET /addresses.json
   def index
+    @form = Form.new(params[:form]) 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @addresses }
@@ -89,6 +90,22 @@ class AddressesController < ApplicationController
     end
   end
   
+  
+  # POST /thank_you
+  def thank_you
+    @form = Form.new(params[:form])
+    respond_to do |format|
+      if @form.save
+        format.html { redirect_to("/#{@user.name}", :notice => 'Thanks for contacting us.') }
+      else
+        params[:name] = @user.name
+        format.html { render action: "index"}
+      end
+    end
+  end
+  
+  
+  
   private
   
   def find_user_addresses
@@ -103,6 +120,5 @@ class AddressesController < ApplicationController
       end
     end
   end
-  
   
 end

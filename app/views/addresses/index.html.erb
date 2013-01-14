@@ -2,6 +2,8 @@
 <div class="page-header">
   <h1><%= "#{@user.name} Contact " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
 </div>
+<h4>Address Locations</h4>
+<br>
 
 <% @addresses.each_with_index do |address, index| %>
 <div class="address well span4" style="position:relative;">
@@ -32,6 +34,11 @@
   
 </div>
 
-
-
 <% end %>
+
+<br>
+<div style="clear:both;"></div>
+
+<% unless @user.contact_form.blank?  %>
+   <%= render 'addresses/contact_form' %>
+ <% end %>
