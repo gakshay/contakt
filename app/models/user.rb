@@ -22,9 +22,11 @@ class User < ActiveRecord::Base
   
   def enable_default_configurations
     services = Service.select("id")
+    configurations = []
     services.each do |service|
-      Configuration.create(service_id: service.id, user_id: self.id)
+       configurations << {service_id: service.id, user_id: self.id, status: true}
     end
+    Configuration.create(configurations)
   end
   
 end
