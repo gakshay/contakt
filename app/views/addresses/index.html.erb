@@ -1,6 +1,6 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1><%= "#{@user.company_name} Contact" %></h1>
+  <h1><%= "#{@user.name} Contact " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
 </div>
 
 <% @addresses.each_with_index do |address, index| %>
@@ -33,5 +33,3 @@
 </div>
 
 <% end %>
-
-<div class="clear" style="clear:both;"></div>
