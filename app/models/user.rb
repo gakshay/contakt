@@ -17,11 +17,14 @@ class User < ActiveRecord::Base
   has_many :configurations
   has_many :services, :through => :configurations
   
-  after_create :enable_default_configuration
+  after_create :enable_default_configurations
   
   
-  def enable_default_configuration
-    
+  def enable_default_configurations
+    services = Service.select("id")
+    services.each do |service|
+      Configuration.create(service_id: service.id, user_id: self.id)
+    end
   end
   
 end
