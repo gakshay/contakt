@@ -1,6 +1,7 @@
 ContaktDemo::Application.routes.draw do
 
   resources :addresses, :only => [:destroy, :new, :create, :edit, :update]
+  resources :configurations, :only => [:edit, :update]
   
   root :to => "home#index"
   

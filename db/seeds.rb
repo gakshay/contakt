@@ -7,6 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 services = Service.create([{name: "address", label: "Address"}, 
-                          {name: "maps", label: "Google Maps"}, 
+                          {name: "maps", label: "Google Maps & Directions"}, 
                           {name: "contact_form", label: "Contact Form"}, 
                           {name: "web2mobile", label: "Web-to-Mobile"}])

@@ -3,11 +3,12 @@ class HomeController < ApplicationController
   
   def index
     if user_signed_in?
-      redirect_to "/home/dashbaord"
+      redirect_to "/home/dashboard"
     end      
   end
   
   def show
+    @configurations = current_user.configurations
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: current_user }

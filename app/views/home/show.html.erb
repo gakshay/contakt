@@ -1,0 +1,28 @@
+<h1><%= current_user.company_name %> Dashboard </h1>
+<hr>
+<br>
+<% @configurations.each do |configuration| %>
+  <%= form_for configuration, :url => { :controller => "configurations", :action => "update", :id => configuration.id}, :html => { :class => 'well pull-left', :style => "margin: 50px;"} do |f| %>
+  
+    <p><%= configuration.service.label %></p>
+    <div class=""><%= image_tag("/assets/#{configuration.service.name}.png")%>
+    </div>
+    
+    <%= f.hidden_field :service_id %>
+    
+    <%= f.hidden_field :user_id %>
+    
+    
+    <div class="control-group">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :status %> Enable
+        </label>
+        <%= f.submit "Save", :class =>"btn" %>
+      </div>
+    </div>
+
+  <% end%>
+  
+<% end %>
+<div style="clear:both"></div>
