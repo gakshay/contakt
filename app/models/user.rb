@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_format_of :name, :with => /^[a-zA-Z0-9]+$/, :message => "should be alphanumeric"
   
   has_many :addresses
-  has_many :configurations
+  has_many :configurations, :dependent => :destroy
   has_many :services, :through => :configurations
   
   after_create :enable_default_configurations
@@ -27,6 +27,11 @@ class User < ActiveRecord::Base
        configurations << {service_id: service.id, user_id: self.id, status: true}
     end
     Configuration.create(configurations)
+  end
+  
+  def reset_default_configurations
+    self.configurations.clear
+    enable_default_configurations
   end
   
 end

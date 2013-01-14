@@ -6,7 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-services = Service.create([{name: "address", label: "Address"}, 
-                          {name: "maps", label: "Google Maps & Directions"}, 
-                          {name: "contact_form", label: "Contact Form"}, 
-                          {name: "web2mobile", label: "Web-to-Mobile"}])
+# services = Service.create([{name: "address", label: "Address"}, 
+#                           {name: "maps", label: "Google Maps & Directions"}, 
+#                           {name: "contact_form", label: "Contact Form"}, 
+#                           {name: "web2mobile", label: "Web-2-Mobile"}])
+                          
+services = Service.create([{name: "live_chat", label: "Live Chat"}, 
+                          {name: "social_media", label: "Social Media"}, 
+                          {name: "advanced_address_lookup", label: "Advanced Address Lookup"}, 
+                          {name: "fax", label: "Fax Service"},
+                          {name: "handshake", label: "Handshake"},
+                          {name: "analytics", label: "Analytics"}])                          
