@@ -8,10 +8,12 @@ gem 'rails', '3.2.6'
 gem 'devise'
 gem 'cancan'
 gem 'jquery-rails'
+gem "heroku"
+gem 'aws-sdk'
 gem 'rails-backbone'
-gem 'libv8', '~> 3.11.8'
-gem "therubyracer"
-gem "less-rails"
+# gem 'libv8', '~> 3.11.8'
+# gem "therubyracer"
+# gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem "geocoder"
 
