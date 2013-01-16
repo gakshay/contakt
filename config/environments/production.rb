@@ -20,6 +20,15 @@ ContaktDemo::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server
+  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+
+
+  # devise default action mailer host url
+  config.action_mailer.default_url_options = { :host => 'contaktus.com' }
+  
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
