@@ -73,4 +73,10 @@ ContaktDemo::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  
+  # HTTP basic auth on production site
+  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Production") do |u, p|
+    [u, p] == [ENV['AUTH_USERNAME'], ENV['AUTH_PASSWORD']]
+  end
+  
 end
