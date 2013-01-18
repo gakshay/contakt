@@ -52,8 +52,8 @@
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><%= link_to "About Us", 'about_us'  %></li>
-              <li><%= link_to "How it works?", "/path2"  %></li>
-              <li><%= link_to "Join Now", "/path3"  %></li>
+              <li><%#= link_to "How it works?", "/path2"  %></li>
+              <li><%#= link_to "Join Now", "/path3"  %></li>
             </ul>
             <ul class="nav pull-right" >
               <%= render 'devise/menu/registration_items' %>
@@ -68,14 +68,22 @@
       <div class="row-fluid">
         <div class="span1">
         </div><!--/span-->
-        <div class="span10">
+        <div class="span10" style="min-height:520px;">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
+        <div class="span1">
+        </div><!--/span-->
       </div><!--/row-->
 
       <footer>
-        <p>Contakt Us &copy; Company 2012</p>
+        <br>
+        <hr>
+         <div class="row-fluid">
+            <div class="span4 pull-right">
+              <em>Copyright &copy; 2013 Contaktus, All rights reserved.</em>
+            </div>
+          </div>
       </footer>
 
     </div> <!-- /container -->

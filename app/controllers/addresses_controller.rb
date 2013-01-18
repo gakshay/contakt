@@ -54,7 +54,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to @address, notice: 'Address was successfully created.' }
+        format.html { redirect_to "#{current_user.name}", notice: 'Address was successfully created.' }
         format.json { render json: @address, status: :created, location: @address }
       else
         format.html { render action: "new" }
@@ -69,7 +69,7 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.find(params[:id])
     respond_to do |format|
       if @address.update_attributes(params[:address])
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+        format.html { redirect_to "#{current_user.name}", notice: 'Address was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
