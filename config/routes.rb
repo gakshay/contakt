@@ -11,6 +11,7 @@ ContaktDemo::Application.routes.draw do
   get '/:name/address/:id' => 'addresses#show'
   post '/:name/thank_you' => 'addresses#thank_you'
   get '/home/dashboard' => 'home#show'
+  get 'addresses#index' => "home#index"
   
   get '/addresses/subregion_options' => 'addresses#subregion_options'
   

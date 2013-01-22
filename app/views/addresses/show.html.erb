@@ -1,6 +1,6 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1><%= "#{@user.name} Contact " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
+  <h1><%= "#{@user.company_name} " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
 </div>
             
 <div class="map-region">
@@ -8,7 +8,7 @@
   <div class="tabbable">
     <ul class="nav nav-tabs">
       <li class="active"><%= link_to "Address", "#mapTab1", "data-toggle" => 'tab', :onclick => "initialize(); return true;" %></li>
-      <li class=""><%= link_to "Enlarge", "#"  %></li>
+      <li class=""><%#= link_to "Enlarge", "#"  %></li>
       <li class=""><%= link_to "Directions", "#mapTab2", "data-toggle" => 'tab' %></li>
       <li class=""><%= link_to "Nearby Landmarks", "#mapTab3", "data-toggle" => 'tab' %></li>
     
