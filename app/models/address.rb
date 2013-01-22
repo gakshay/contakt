@@ -4,6 +4,7 @@ class Address < ActiveRecord::Base
   attr_accessible :city, :country, :state, :street_address, :street_address_two, :zipcode, :latitude, :longitude
   belongs_to :user
   
+  validates_presence_of :city, :country, :state, :street_address, :zipcode
   
   GMAPS_URL = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&address="
     
@@ -14,12 +15,6 @@ class Address < ActiveRecord::Base
     unless coordinates.blank?
       self.latitude, self.longitude = coordinates[0], coordinates[1]
     end
-    
-    # url = GMAPS_URL + encoded_address
-    #     result = Net::HTTP.get(URI.parse(url))
-    #     resp = JSON.parse(result)
-    #     self.latitude = resp.first["geometry"]["location"]["lat"]
-    #     self.longitude = resp.first["geometry"]["location"]["lng"]
   end
   
   def address

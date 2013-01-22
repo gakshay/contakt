@@ -1,4 +1,13 @@
 <%= form_for @address, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <% unless @address.errors.blank? %>
+  <div class="alert alert-error">
+    <% @address.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  </div>
+  <% end %>
+  
   <div class="control-group">
     <%= f.label :street_address, :class => 'control-label' %>
     <div class="controls">
@@ -11,28 +20,32 @@
       <%= f.text_field :street_address_two, :class => 'text_field' %>
     </div>
   </div>
+  
+  <div class="control-group">
+     <%= f.label :country, :class => 'control-label' %>
+     <div class="controls">
+       <%= f.country_select :country, priority: %w(US IN), prompt: 'Please select a country' %>
+     </div>
+   </div>
+   
+   <div class="control-group">
+     <%= f.label :state, :class => 'control-label' %>
+     <div class="controls">
+       <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+     </div>
+   </div>
+   
   <div class="control-group">
     <%= f.label :city, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :city, :class => 'text_field' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :state, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :state, :class => 'text_field' %>
-    </div>
-  </div>
+  
   <div class="control-group">
     <%= f.label :zipcode, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :zipcode, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :country, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :country, :class => 'text_field' %>
     </div>
   </div>
 

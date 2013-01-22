@@ -52,10 +52,10 @@
   <%= link_to t('.back', :default => t("helpers.links.back")),
               addresses_path, :class => 'btn'  %>
   
-  <% if can? :update, @address %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+  <%# if can? :update, @address %>
+  <%#= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_address_path(@address), :class => 'btn' %>
-  <% end %>
+  <%# end %>
   
   <% if can? :destroy, @address %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

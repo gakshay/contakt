@@ -12,6 +12,8 @@ ContaktDemo::Application.routes.draw do
   post '/:name/thank_you' => 'addresses#thank_you'
   get '/home/dashboard' => 'home#show'
   
+  get '/addresses/subregion_options' => 'addresses#subregion_options'
+  
   #devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
   devise_for :users, skip: :registrations, path_names: { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }
   devise_scope :user do
