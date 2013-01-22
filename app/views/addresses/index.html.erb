@@ -1,39 +1,49 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1><%= "#{@user.name} Contact " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
+  <h1><%= "#{@user.company_name} " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
 </div>
 <h4>Address Locations</h4>
 <br>
 
-<% @addresses.each_with_index do |address, index| %>
-<div class="address well span4" style="position:relative;">
-  <div style="position:absolute; right: 10px;">
-    
-    <%# if can? :update, address %>
-      <%#= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
-      edit_address_path(address)%>
-    <%# end %>
-    
-    <% if can? :destroy, address %>
-      <%= link_to 'x',
-      address_path(address),
-      :method => :delete,
-      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-      :class => 'btn btn-mini btn-danger' %>
-    <% end %>
-  </div>
-  
-  <a href=<%= "#{@user.name}/address/#{index+1}" %> >
-    <span><%= address.street_address %></span>
-    <span><%= address.street_address_two %></span><br>
-    <span><%= address.city %></span>
-    <span><%= address.state %></span><br>
-    <span><%= address.country %></span>
-    <span><%= address.zipcode %></span><br>
-  </a>
-  
-</div>
+<% if user_signed_in? %>
+  <% if @addresses.empty? and can? :create, current_user.addresses.new %>
+    <p>You have no locations added to your profile. Please <%= link_to "Add new location", new_address_path, class: "btn-warning btn-large"%></p>
+  <% end %>
+<% elsif @addresses.empty? %>
+  <p><%= "#{@user.company_name}" %> have not added locations yet to their account</p>
+<% end %>
 
+<% if !@addresses.empty? %>
+  <% @addresses.each_with_index do |address, index| %>
+  <div class="address well span4" style="position:relative;">
+    <div style="position:absolute; right: 10px;">
+    
+      <%# if can? :update, address %>
+        <%#= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
+        edit_address_path(address)%>
+      <%# end %>
+    
+      <% if can? :destroy, address %>
+        <%= link_to 'x',
+        address_path(address),
+        :method => :delete,
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+        :class => 'btn btn-mini btn-danger' %>
+      <% end %>
+    </div>
+  
+    <a href=<%= "#{@user.name}/address/#{index+1}" %> >
+      <span><%= address.street_address %></span>
+      <span><%= address.street_address_two %></span><br>
+      <span><%= address.city %></span>
+      <span><%= address.state %></span><br>
+      <span><%= address.country %></span>
+      <span><%= address.zipcode %></span><br>
+    </a>
+  
+  </div>
+
+  <% end %>
 <% end %>
 
 <br>
