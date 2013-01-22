@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <li class="dropdown">
      <%= link_to(raw("#{current_user.name} <b class='caret'></b>"), edit_user_registration_path, :class => "dropdown-toggle", "data-toggle" => "dropdown", "data-target" => "#") %>
-    <ul class="dropdown-men">
+    <ul class="dropdown-menu">
       <li><%= link_to "Dashboard", "/home/dashboard"  %></li>
       <li><%= link_to "Edit Account", edit_user_registration_path  %></li>
     </ul>
@@ -10,7 +10,7 @@
   
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown"  href="#">My Locations  <b class="caret"></b> </a>
-    <ul class="dropdown-men">
+    <ul class="dropdown-menu">
       <li><%= link_to "New Location", new_address_path  %></li>
       <li><%= link_to "All Locations", "/#{current_user.name}"  %></li>
     </ul>
