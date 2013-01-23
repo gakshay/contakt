@@ -31,13 +31,34 @@
         :class => 'btn btn-mini btn-danger' %>
       <% end %>
     </div>
-  
+      <strong><p><%= address.label unless address.label.blank? %></p></strong>
       <span><%= address.street_address %></span>
       <span><%= address.street_address_two %></span><br>
       <span><%= address.city %></span>
       <span><%= address.state %></span><br>
       <span><%= address.country %></span>
       <span><%= address.zipcode %></span><br>
+      <br>
+      <% unless address.phones.empty? %>
+        <strong>Phone Numbers</strong>
+        <% address.phones.each do |phone| %>
+          <p><span>+</span> <%= phone.number %></p>
+        <% end %>
+      <% end %>
+      
+      <% unless address.faxs.empty? %>
+        <strong>Fax:</strong>
+        <% address.faxs.each do |fax| %>
+          <p><span>+</span> <%= fax.number %></p>
+        <% end %>
+      <% end %>
+      
+      <% unless address.emails.empty? %>
+        <strong>Emails:</strong>
+        <% address.emails.each do |email| %>
+          <p><%= email.email %></p>
+        <% end %>
+      <% end %>
   
   </div>
 
