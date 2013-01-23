@@ -57,38 +57,41 @@
     </div>
   </div>
   
-  <%= f.fields_for :phones, @address.phones do |phone| %>
-    <div class="control-group">
-      <%= phone.label "Phone Number", :class => 'control-label' %>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on">+</span>
-          <%= phone.text_field :number, :class => 'text_field span8', :placeholder => "Phone number", :size => 39 %>
-        </div>
+  <div class="control-group">
+    <%= f.label "Phone Number", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.fields_for :phones do |phone| %>
+      <div class="input-prepend">
+        <span class="add-on">+</span>
+        <%= phone.text_field :number, :class => 'text_field span8', :placeholder => "Phone number", :size => 39 %>
       </div>
+      <% end %>
+      <span><%= link_to_add_association '+', f, :phones, :class => "btn btn-info" %></span>
     </div>
-  <% end %>
+  </div>
   
-  <%= f.fields_for :faxs, @address.faxs do |fax| %>
-    <div class="control-group">
-      <%= fax.label "Fax Number", :class => 'control-label' %>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on">+</span>
-          <%= fax.text_field :number, :class => 'text_field span8', :placeholder => "Fax number", :size => 39 %>
-        </div>
+  <div class="control-group">
+    <%= f.label "Fax Number", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.fields_for :faxs do |fax| %>
+      <div class="input-prepend">
+        <span class="add-on">+</span>
+        <%= fax.text_field :number, :class => 'text_field span8', :placeholder => "Fax number", :size => 39 %>
       </div>
+      <% end %>
+      <span><%= link_to_add_association '+', f, :faxs, :class => "btn btn-info" %></span>
     </div>
-  <% end %>
+  </div>
   
-  <%= f.fields_for :emails, @address.emails do |email| %>
     <div class="control-group">
-      <%= email.label :email, :class => 'control-label' %>
+      <%= f.label :email, :class => 'control-label' %>
       <div class="controls">
-        <%= email.text_field :email, :class => 'text_field', :placeholder => "Email Address"%>
+        <%= f.fields_for :emails do |email| %>
+          <%= email.text_field :email, :class => 'text_field', :placeholder => "Email Address"%>
+        <% end %>
+        <span>&nbsp;&nbsp; <%= link_to_add_association '+', f, :emails, :class => "btn btn-info" %></span>
       </div>
     </div>
-  <% end %>
   
 
   <div class="form-actions">
