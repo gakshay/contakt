@@ -1,5 +1,11 @@
 ContaktDemo::Application.routes.draw do
 
+  resources :emails
+
+  resources :faxes
+
+  resources :phones
+
   resources :addresses, :only => [:destroy, :new, :create, :edit, :update] do
     post :thank_you, :on => :collection
   end

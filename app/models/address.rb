@@ -2,13 +2,17 @@ require 'net/http'
 
 class Address < ActiveRecord::Base
   attr_accessible :city, :country, :state, :street_address, :street_address_two, :zipcode, :latitude, :longitude
-  belongs_to :user
-  
   validates_presence_of :city, :country, :state, :street_address, :zipcode
+  
+  before_create :find_lat_long
+  
+  belongs_to :user
+  has_many :phones
+  has_many :faxes
+  has_many :emails
   
   GMAPS_URL = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&address="
     
-  before_create :find_lat_long
   
   def find_lat_long
     coordinates = Geocoder.coordinates(address)

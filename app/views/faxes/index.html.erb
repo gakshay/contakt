@@ -1,0 +1,27 @@
+<h1>Listing faxes</h1>
+
+<table>
+  <tr>
+    <th>Label</th>
+    <th>Number</th>
+    <th>Address</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @faxes.each do |faxis| %>
+  <tr>
+    <td><%= faxis.label %></td>
+    <td><%= faxis.number %></td>
+    <td><%= faxis.address_id %></td>
+    <td><%= link_to 'Show', faxis %></td>
+    <td><%= link_to 'Edit', edit_faxis_path(faxis) %></td>
+    <td><%= link_to 'Destroy', faxis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Fax', new_faxis_path %>

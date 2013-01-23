@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Label:</b>
+  <%= @faxis.label %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @faxis.number %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @faxis.address_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_faxis_path(@faxis) %> |
+<%= link_to 'Back', faxes_path %>
