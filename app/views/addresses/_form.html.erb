@@ -9,13 +9,21 @@
   <% end %>
   
   <div class="control-group">
+    <%= f.label "Heading", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :label, :class => 'text_field', :placeholder => "Headquarter, Sales off. etc" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
     <%= f.label :street_address, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :street_address, :class => 'text_field' %>
     </div>
   </div>
+  
   <div class="control-group">
-    <%= f.label :street_address_two, :class => 'control-label' %>
+    <%= f.label "street_address_two", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :street_address_two, :class => 'text_field' %>
     </div>
@@ -48,6 +56,40 @@
       <%= f.text_field :zipcode, :class => 'text_field' %>
     </div>
   </div>
+  
+  <%= f.fields_for :phones, @address.phones do |phone| %>
+    <div class="control-group">
+      <%= phone.label "Phone Number", :class => 'control-label' %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">+</span>
+          <%= phone.text_field :number, :class => 'text_field span8', :placeholder => "Phone number", :size => 39 %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <%= f.fields_for :faxs, @address.faxs do |fax| %>
+    <div class="control-group">
+      <%= fax.label "Fax Number", :class => 'control-label' %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">+</span>
+          <%= fax.text_field :number, :class => 'text_field span8', :placeholder => "Fax number", :size => 39 %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <%= f.fields_for :emails, @address.emails do |email| %>
+    <div class="control-group">
+      <%= email.label :email, :class => 'control-label' %>
+      <div class="controls">
+        <%= email.text_field :email, :class => 'text_field', :placeholder => "Email Address"%>
+      </div>
+    </div>
+  <% end %>
+  
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

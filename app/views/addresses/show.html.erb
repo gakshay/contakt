@@ -17,13 +17,36 @@
     <div class="tab-content" style="width: 35%; height: 100%; margin: 0 5px; float:right;">
          
         <div class="tab-pane active" id="mapTab1">
-          <h4>Address</h4>
+          <strong><p><%= @address.label %>:</p></strong>
           <dl class="dl-vertical">
             <dd><%= @address.street_address %></dd>
             <dd><%= @address.street_address_two %>, </dd>
             <dd><%= @address.city %>, <%= @address.state %></dd>
-            <dd><%= @address.country %> - <%= @address.zipcode %></dd>
+            <dd><%= @address.country %> - <%= @address.zipcode %></dd> <br>
+            
+            <% unless @address.phones.empty? %>
+              <strong>Phone Numbers</strong>
+              <% @address.phones.each do |phone| %>
+                <dd><span>+</span> <%= phone.number %></dd>
+              <% end %>
+            <% end %>
+            
+            <% unless @address.faxs.empty? %>
+              <strong>Fax:</strong>
+              <% @address.faxs.each do |fax| %>
+                <dd><span>+</span> <%= fax.number %></dd>
+              <% end %>
+            <% end %>
+            
+            <% unless @address.emails.empty? %>
+              <strong>Emails:</strong>
+              <% @address.emails.each do |email| %>
+                <dd><%= email.email %></dd>
+              <% end %>
+            <% end %>
+            
           </dl>
+          
         </div>
       
         <div class="tab-pane" id="mapTab2">

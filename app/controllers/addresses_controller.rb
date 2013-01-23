@@ -35,7 +35,9 @@ class AddressesController < ApplicationController
   # GET /addresses/new.json
   def new
     @address = current_user.addresses.new
-
+    @address.phones.build
+    @address.faxs.build
+    @address.emails.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @address }

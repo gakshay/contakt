@@ -2,14 +2,19 @@ require 'net/http'
 
 class Address < ActiveRecord::Base
   attr_accessible :city, :country, :state, :street_address, :street_address_two, :zipcode, :latitude, :longitude
-  validates_presence_of :city, :country, :state, :street_address, :zipcode
+  attr_accessible :phones_attributes, :faxs_attributes, :emails_attributes, :label
+  validates_presence_of :city, :country, :state, :street_address, :zipcode, :label
+  
+  belongs_to :user
+  has_many :phones, :dependent => :destroy
+  has_many :faxs, :dependent => :destroy
+  has_many :emails, :dependent => :destroy
+  accepts_nested_attributes_for :phones, :allow_destroy => true, :reject_if => lambda { |a| a[:number].blank? }
+  accepts_nested_attributes_for :faxs, :allow_destroy => true, :reject_if => lambda { |a| a[:number].blank? }
+  accepts_nested_attributes_for :emails, :allow_destroy => true, :reject_if => lambda { |a| a[:email].blank? }
   
   before_create :find_lat_long
   
-  belongs_to :user
-  has_many :phones
-  has_many :faxes
-  has_many :emails
   
   GMAPS_URL = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&address="
     
