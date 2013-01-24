@@ -1,0 +1,21 @@
+body {
+  font-family: "museo-sans", sans-serif;
+  background: url("/assets/bg.png");
+}
+
+#footer {
+  background: #686868 url("/assets/noise.png") repeat;
+  border-top: 3px solid #575757;
+  color: #ffffff;
+  margin-top: 50px;
+  height: 30px;
+  padding: 10px;
+  a {
+    color: #ffffff;
+    padding: 10px;
+    text-decoration: none;
+    }
+  a:hover {
+      text-decoration: underline;
+    }
+}

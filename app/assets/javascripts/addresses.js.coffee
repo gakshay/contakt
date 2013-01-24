@@ -15,6 +15,6 @@ $ ->
     select_wrapper.load(url)
 
 $ -> 
-  $('.delete_address').bind 'ajax:success', (event) =>
+  $('.delete_address').bind 'ajax:success', (event) ->
     console.log $(this).parent().parent()
     $(this).parent().parent().slideUp()

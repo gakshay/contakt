@@ -1,6 +1,5 @@
-
 <div class="form pull-left">
-  <%= form_for @address, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= form_for @address, :html => { :class => 'form-horizontal float-up' } do |f| %>
 
     <% unless @address.errors.blank? %>
     <div class="alert alert-error">
@@ -16,6 +15,27 @@
         <%= f.text_field :label, :class => 'text_field', :placeholder => "Headquarter, Sales off. etc" %>
       </div>
     </div>
+    
+     <div class="control-group">
+         <%= f.label :country, :class => 'control-label' %>
+         <div class="controls">
+           <%= f.country_select :country, priority: %w(US IN), prompt: 'Please select a country' %>
+         </div>
+       </div>
+
+       <div class="control-group">
+         <%= f.label :state, :class => 'control-label' %>
+         <div class="controls">
+           <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+         </div>
+       </div>
+
+      <div class="control-group">
+        <%= f.label :city, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :city, :class => 'text_field' %>
+        </div>
+      </div>
   
     <div class="control-group">
       <%= f.label :street_address, :class => 'control-label' %>
@@ -32,32 +52,16 @@
     </div>
   
     <div class="control-group">
-       <%= f.label :country, :class => 'control-label' %>
-       <div class="controls">
-         <%= f.country_select :country, priority: %w(US IN), prompt: 'Please select a country' %>
-       </div>
-     </div>
-   
-     <div class="control-group">
-       <%= f.label :state, :class => 'control-label' %>
-       <div class="controls">
-         <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
-       </div>
-     </div>
-   
-    <div class="control-group">
-      <%= f.label :city, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :city, :class => 'text_field' %>
-      </div>
-    </div>
-  
-    <div class="control-group">
       <%= f.label :zipcode, :class => 'control-label' %>
       <div class="controls">
         <%= f.text_field :zipcode, :class => 'text_field' %>
       </div>
     </div>
+    
+    <%= f.hidden_field :latitude, :class => 'hidden_field' %>
+    
+    <%= f.hidden_field :longitude, :class => 'hidden_field' %>
+    
   
     <div class="control-group">
       <%= f.label "Phone Number", :class => 'control-label' %>
@@ -97,15 +101,71 @@
   
 
     <div class="form-actions">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= f.submit nil, :class => 'btn btn-primary', :disable_with => "Saving..." %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   addresses_path, :class => 'btn' %>
     </div>
   <% end %>
 </div>
-<div class="pull-left" id="map_canvas">
-  <h2>Map will load here</h2>
-  <p>Ajaxifying this process
+
+<div id="map_canvas" style="width:45%; height:400px; margin: 10px; background-color: #fff;" class="well pull-left">
 </div>
 
-  <div class="clearfix"></div>
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+  var geocoder;
+  var map;
+</script>
+
+<script>
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    
+    var myLatlng = new google.maps.LatLng(<%= @address.default_coordinates[0] %>, <%= @address.default_coordinates[1] %>) ;
+    var mapOptions = {
+      center: myLatlng,
+      zoom: 3,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    };
+    
+    map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);        
+ }
+ 
+ function codeAddress(address, zoom) {
+   var address = address;
+   geocoder.geocode( { 'address': address}, function(results, status) {
+     if (status == google.maps.GeocoderStatus.OK) {
+       map.setZoom(zoom);
+       map.setCenter(results[0].geometry.location);
+       var marker = new google.maps.Marker({
+         map: map,
+         position: results[0].geometry.location
+       });
+     } else {
+       alert("Address not found for the following reason: " + status);
+     }
+   });
+ }
+ 
+  function loadScript() {
+   var script = document.createElement("script");
+   script.type = "text/javascript";
+   script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAiWC6EU28mQk9du90WHXUQTSTaE48FlFw&libraries=places&sensor=false&callback=initialize";
+   document.body.appendChild(script);
+  }
+
+  window.onload = loadScript;
+</script>
+
+<script>
+  $("#address_city").live('change', function(){
+    var state = $("#address_state").val();
+    var country = $("#address_country").val();
+    var city = $(this).val();
+    var address = city + ", " + state + ", " + country
+    console.log(address);
+    codeAddress(address, 13);
+  });
+</script>

@@ -18,7 +18,7 @@ class Address < ActiveRecord::Base
   
   GMAPS_URL = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&address="
     
-  
+
   def find_lat_long
     coordinates = Geocoder.coordinates(address)
     unless coordinates.blank?
@@ -28,6 +28,11 @@ class Address < ActiveRecord::Base
   
   def address
     [self.street_address, self.street_address_two, self.city, self.state, self.country].compact.join(', ')
+  end
+  
+  def default_coordinates
+    #[20.593684, 78.96288] # India Coordinates
+    [37.09024, -95.712891] # US Coordinates
   end
   
   private

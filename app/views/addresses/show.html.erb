@@ -68,7 +68,7 @@
     <div id="map_canvas" style="width:60%; height:500px; float:left; background-color: #fff;" class="well"></div>
     
     
-    <div style="clear:both;"></div>
+    <div class="clearfix"></div>
   </div>
 </div>
 
@@ -103,7 +103,6 @@
 
   function initialize() {
     
-    var icon = "http://25.media.tumblr.com/avatar_f041527b49a3_16.png";
     var myLatlng = new google.maps.LatLng(<%= @address.latitude %>, <%= @address.longitude %>) ;
     var mapOptions = {
       center: myLatlng,
