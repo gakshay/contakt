@@ -13,3 +13,8 @@ $ ->
 
     url = "/addresses/subregion_options?parent_region=#{country_code}"
     select_wrapper.load(url)
+
+$ -> 
+  $('.delete_address').bind 'ajax:success', (event) =>
+    console.log $(this).parent().parent()
+    $(this).parent().parent().slideUp()

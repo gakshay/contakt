@@ -15,8 +15,8 @@
 
 <% if !@addresses.empty? %>
   <% @addresses.each_with_index do |address, index| %>
-  <div class="address well span4" style="cursor:pointer;" onclick="window.location.href = '<%= "/#{@user.name}/address/#{index+1}"%>'; return false;">
-    <div style="float:right;">
+  <div class="address well span4" style="cursor:pointer;">
+    <span style="float:right;">
     
       <%# if can? :update, address %>
         <%#= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
@@ -27,10 +27,11 @@
         <%= link_to 'x',
         address_path(address),
         :method => :delete,
-        :data => { :toggle => "modal", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-        :class => 'btn btn-mini btn-danger' %>
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+        :class => 'btn btn-mini btn-danger delete_address' %>
       <% end %>
-    </div>
+    </span>
+    <div class="address" onclick="window.location.href = '<%= "/#{@user.name}/address/#{index+1}"%>'; return false;">
       <strong><p><%= address.label unless address.label.blank? %></p></strong>
       <span><%= address.street_address %></span>
       <span><%= address.street_address_two %></span><br>
@@ -59,7 +60,7 @@
           <p><%= email.email %></p>
         <% end %>
       <% end %>
-  
+    </div>
   </div>
 
   <% end %>

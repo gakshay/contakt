@@ -1,102 +1,111 @@
-<%= form_for @address, :html => { :class => 'form-horizontal' } do |f| %>
 
-  <% unless @address.errors.blank? %>
-  <div class="alert alert-error">
-    <% @address.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
+<div class="form pull-left">
+  <%= form_for @address, :html => { :class => 'form-horizontal' } do |f| %>
+
+    <% unless @address.errors.blank? %>
+    <div class="alert alert-error">
+      <% @address.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+      <% end %>
+    </div>
     <% end %>
-  </div>
-  <% end %>
-  
-  <div class="control-group">
-    <%= f.label "Heading", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :label, :class => 'text_field', :placeholder => "Headquarter, Sales off. etc" %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label :street_address, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :street_address, :class => 'text_field' %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label "street_address_two", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :street_address_two, :class => 'text_field' %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-     <%= f.label :country, :class => 'control-label' %>
-     <div class="controls">
-       <%= f.country_select :country, priority: %w(US IN), prompt: 'Please select a country' %>
-     </div>
-   </div>
-   
-   <div class="control-group">
-     <%= f.label :state, :class => 'control-label' %>
-     <div class="controls">
-       <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
-     </div>
-   </div>
-   
-  <div class="control-group">
-    <%= f.label :city, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :city, :class => 'text_field' %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label :zipcode, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :zipcode, :class => 'text_field' %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label "Phone Number", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.fields_for :phones do |phone| %>
-      <div class="input-prepend">
-        <span class="add-on">+</span>
-        <%= phone.text_field :number, :class => 'text_field span8', :placeholder => "Phone number", :size => 39 %>
-      </div>
-      <% end %>
-      <span><%= link_to_add_association '+', f, :phones, :class => "btn btn-info" %></span>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label "Fax Number", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.fields_for :faxs do |fax| %>
-      <div class="input-prepend">
-        <span class="add-on">+</span>
-        <%= fax.text_field :number, :class => 'text_field span8', :placeholder => "Fax number", :size => 39 %>
-      </div>
-      <% end %>
-      <span><%= link_to_add_association '+', f, :faxs, :class => "btn btn-info" %></span>
-    </div>
-  </div>
   
     <div class="control-group">
-      <%= f.label :email, :class => 'control-label' %>
+      <%= f.label "Heading", :class => 'control-label' %>
       <div class="controls">
-        <%= f.fields_for :emails do |email| %>
-          <%= email.text_field :email, :class => 'text_field', :placeholder => "Email Address"%>
-        <% end %>
-        <span>&nbsp;&nbsp; <%= link_to_add_association '+', f, :emails, :class => "btn btn-info" %></span>
+        <%= f.text_field :label, :class => 'text_field', :placeholder => "Headquarter, Sales off. etc" %>
       </div>
     </div>
   
+    <div class="control-group">
+      <%= f.label :street_address, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :street_address, :class => 'text_field' %>
+      </div>
+    </div>
+  
+    <div class="control-group">
+      <%= f.label "street_address_two", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :street_address_two, :class => 'text_field' %>
+      </div>
+    </div>
+  
+    <div class="control-group">
+       <%= f.label :country, :class => 'control-label' %>
+       <div class="controls">
+         <%= f.country_select :country, priority: %w(US IN), prompt: 'Please select a country' %>
+       </div>
+     </div>
+   
+     <div class="control-group">
+       <%= f.label :state, :class => 'control-label' %>
+       <div class="controls">
+         <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+       </div>
+     </div>
+   
+    <div class="control-group">
+      <%= f.label :city, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :city, :class => 'text_field' %>
+      </div>
+    </div>
+  
+    <div class="control-group">
+      <%= f.label :zipcode, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :zipcode, :class => 'text_field' %>
+      </div>
+    </div>
+  
+    <div class="control-group">
+      <%= f.label "Phone Number", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.fields_for :phones do |phone| %>
+        <div class="input-prepend">
+          <span class="add-on">+</span>
+          <%= phone.text_field :number, :class => 'span10', :placeholder => "Phone number" %>
+        </div>
+        <% end %>
+        <span><%= link_to_add_association '+', f, :phones, :class => "btn btn-info" %></span>
+      </div>
+    </div>
+  
+    <div class="control-group">
+      <%= f.label "Fax Number", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.fields_for :faxs do |fax| %>
+        <div class="input-prepend">
+          <span class="add-on">+</span>
+          <%= fax.text_field :number, :class => 'span10', :placeholder => "Fax number"%>
+        </div>
+        <% end %>
+        <span><%= link_to_add_association '+', f, :faxs, :class => "btn btn-info" %></span>
+      </div>
+    </div>
+  
+      <div class="control-group">
+        <%= f.label :email, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.fields_for :emails do |email| %>
+            <%= email.text_field :email, :class => 'text_field span8', :placeholder => "Email Address"%>
+          <% end %>
+          <span>&nbsp;&nbsp;<%= link_to_add_association '+', f, :emails, :class => "btn btn-info" %></span>
+        </div>
+      </div>
+  
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                addresses_path, :class => 'btn' %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  addresses_path, :class => 'btn' %>
+    </div>
+  <% end %>
+</div>
+<div class="pull-left" id="map_canvas">
+  <h2>Map will load here</h2>
+  <p>Ajaxifying this process
+</div>
+
+  <div class="clearfix"></div>

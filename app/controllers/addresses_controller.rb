@@ -58,9 +58,14 @@ class AddressesController < ApplicationController
       if @address.save
         format.html { redirect_to "/#{current_user.name}/address/#{@count + 1}", notice: 'Address was successfully created.' }
         format.json { render json: @address, status: :created, location: @address }
+        format.js
       else
+        @address.phones.build
+        @address.faxs.build
+        @address.emails.build
         format.html { render action: "new" }
         format.json { render json: @address.errors, status: :unprocessable_entity }
+        format.js 
       end
     end
   end
@@ -89,6 +94,7 @@ class AddressesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to addresses_url }
       format.json { head :no_content }
+      format.js { render :js => "$(this).parent().parent().remove(); this.preventDefault();" } 
     end
   end
   
