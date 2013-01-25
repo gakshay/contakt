@@ -1,26 +1,27 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1><%= "#{@user.company_name} " %></h1><h4><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></h4>
+   <h1><%= "#{@user.company_name} " %><small><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></small></h1>
 </div>
             
 <div class="map-region">
   
   <div class="tabbable">
-    <ul class="nav nav-tabs">
-      <li class="active"><%= link_to "Address", "#mapTab1", "data-toggle" => 'tab', :onclick => "initialize(); return true;" %></li>
-      <li class=""><%#= link_to "Enlarge", "#"  %></li>
-      <li class=""><%= link_to "Directions", "#mapTab2", "data-toggle" => 'tab', :onclick => "calcRoute(); return true;" %></li>
-      <li class=""><%= link_to "Nearby Landmarks", "#mapTab3", "data-toggle" => 'tab' %></li>
     
-    </ul>
     
     <div id="map_canvas" style="width:60%; height:500px; background-color: #fff;" class="well pull-left"></div>
     
          
     <div class="tab-content pull-left" style="width: 35%; height: 100%; margin: 0 5px;">
-         
+         <ul class="nav nav-pills">
+           <li class="active"><%= link_to "Address", "#mapTab1", "data-toggle" => 'tab', :onclick => "initialize(); return true;" %></li>
+           <li class=""><%#= link_to "Enlarge", "#"  %></li>
+           <li class=""><%= link_to "Directions", "#mapTab2", "data-toggle" => 'tab', :onclick => "calcRoute(); return true;" %></li>
+           <li class=""><%= link_to "Nearby Landmarks", "#mapTab3", "data-toggle" => 'tab' %></li>
+
+         </ul>
         <div class="tab-pane active" id="mapTab1">
           <strong><p><%= @address.label.blank? ? "Address" : @address.label %>:</p></strong>
+          
           <dl class="dl-vertical">
             <dd><%= @address.street_address %></dd>
             <dd><%= @address.street_address_two %>, </dd>
@@ -76,10 +77,10 @@
   <%= link_to t('.back', :default => t("helpers.links.back")),
               addresses_path, :class => 'btn'  %>
   
-  <%# if can? :update, @address %>
-  <%#= link_to t('.edit', :default => t("helpers.links.edit")),
+  <% if can? :update, @address %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_address_path(@address), :class => 'btn' %>
-  <%# end %>
+  <% end %>
   
   <% if can? :destroy, @address %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

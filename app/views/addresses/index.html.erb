@@ -1,6 +1,6 @@
 <%- model_class = Address -%>
 <div class="page-header">
-  <h1><%= "#{@user.company_name} " %><span><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></span></h1>
+  <h1><%= "#{@user.company_name} " %><small><%= link_to "(#{@user.company_url})", @user.company_url, :target => "_blank" %></small></h1>
 </div>
 <h4>Address Locations</h4>
 <br>
@@ -15,7 +15,7 @@
 
 <% if !@addresses.empty? %>
   <% @addresses.each_with_index do |address, index| %>
-  <div class="address well span3" style="cursor:pointer;">
+  <div class="address well well-large span4" style="cursor:pointer;">
     <span style="float:right;">
     
       <% if can? :update, address %>
@@ -67,17 +67,7 @@
 <% end %>
 
 
-<!-- Modal -->
-<div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="addModalLabel">Company Registration</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-</div>
-
+<br>
 <br>
 <div style="clear:both;"></div>
 

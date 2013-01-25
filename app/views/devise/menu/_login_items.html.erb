@@ -4,21 +4,21 @@
   </li>
 <% else %>
   <li>
-  <%= link_to('Login', new_user_session_path, "data-target" => "#logModal", "data-toggle" => "modal")  %>  
+  <%= link_to('Login', new_user_session_path)  %>  
   </li>
   
   <!-- Modal -->
-  <div id="logModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="logModalLabel">Company Login</h3>
-    </div>
-    <div class="modal-body">
-      
-    </div>
-    <!-- <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          <button class="btn btn-primary">Save changes</button>
-        </div> -->
-  </div>
+  <!-- <div id="logModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="logModalLabel">Company Login</h3>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
+    </div> -->
 <% end %>

@@ -3,6 +3,20 @@ body {
   background: url("/assets/bg.png");
 }
 
+.btn-green {
+  background: #65c31f;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  border-color: #57af17;
+  font-weight: bold;
+  background-color: #65c31f;
+  background-image: -moz-linear-gradient(#94d52d,#65c31f);
+  background-image: -o-linear-gradient(#94d52d,#65c31f);
+  background-image: -ms-linear-gradient(#94d52d,#65c31f);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#94d52d),color-stop(1,#65c31f));
+  background-image: -webkit-linear-gradient(#94d52d,#65c31f);
+}
+
 #footer {
   background: #686868 url("/assets/noise.png") repeat;
   border-top: 3px solid #575757;
@@ -17,5 +31,15 @@ body {
     }
   a:hover {
       text-decoration: underline;
+    }
+}
+#header {
+  background: #686868 url("/assets/noise.png") repeat;
+  border-bottom: 3px solid #575757;
+  color: #ffffff;
+  padding: 10px;
+  a {
+    color: #fff;
+    text-decoration: none;
     }
 }

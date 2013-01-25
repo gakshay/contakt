@@ -1,5 +1,7 @@
-<div class="form pull-left">
-  <%= form_for @address, :html => { :class => 'form-horizontal float-up' } do |f| %>
+<div id="map_canvas" style="width:40%; height:400px; margin: 10px; background-color: #fff;" class="well pull-left">
+</div>
+<div class="pull-left" style="width:50%">
+  <%= form_for @address, :html => { :class => 'form-horizontal' } do |f| %>
 
     <% unless @address.errors.blank? %>
     <div class="alert alert-error">
@@ -106,9 +108,6 @@
                   addresses_path, :class => 'btn' %>
     </div>
   <% end %>
-</div>
-
-<div id="map_canvas" style="width:45%; height:400px; margin: 10px; background-color: #fff;" class="well pull-left">
 </div>
 
 <div class="clearfix"></div>
