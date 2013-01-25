@@ -15,13 +15,13 @@
 
 <% if !@addresses.empty? %>
   <% @addresses.each_with_index do |address, index| %>
-  <div class="address well span4" style="cursor:pointer;">
+  <div class="address well span3" style="cursor:pointer;">
     <span style="float:right;">
     
-      <%# if can? :update, address %>
-        <%#= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
-        edit_address_path(address)%>
-      <%# end %>
+      <% if can? :update, address %>
+        <%= link_to (image_tag("/assets/edit_tool.png", :width => "15", :height => "20")),
+        edit_address_path(address), :class => "btn btn-mini"%>
+      <% end %>
     
       <% if can? :destroy, address %>
         <%= link_to 'x',
@@ -57,7 +57,7 @@
       <% unless address.emails.empty? %>
         <strong>Emails:</strong>
         <% address.emails.each do |email| %>
-          <p><%= email.email %></p>
+          <p><%= link_to email.email, "mailto:#{email.email}" %></p>
         <% end %>
       <% end %>
     </div>

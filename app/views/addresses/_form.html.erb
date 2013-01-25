@@ -101,7 +101,7 @@
   
 
     <div class="form-actions">
-      <%= f.submit nil, :class => 'btn btn-primary', :disable_with => "Saving..." %>
+      <%= f.submit nil, :class => 'btn btn-primary', :data => {:disable_with => "Saving..."} %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   addresses_path, :class => 'btn' %>
     </div>
@@ -116,21 +116,39 @@
 <script type="text/javascript">
   var geocoder;
   var map;
+  var markersArray = [];
+  //var marker;
+  
+  function setLatitudeLongitude(location){
+    $("#address_latitude").val(location.Ya);
+    $("#address_longitude").val(location.Za);
+  }
+  
 </script>
 
 <script>
   function initialize() {
     geocoder = new google.maps.Geocoder();
-    
-    var myLatlng = new google.maps.LatLng(<%= @address.default_coordinates[0] %>, <%= @address.default_coordinates[1] %>) ;
+    var zoom_level;
+    if (<%= @address.latitude.blank? %> || <%= @address.longitude.blank? %>) {
+      var myLatlng = new google.maps.LatLng(<%= @address.default_coordinates[0] %>, <%= @address.default_coordinates[1] %>) ;
+      zoom_level = 3;
+    }
+    else {
+      var myLatlng = new google.maps.LatLng(<%= @address.latitude.to_f %>, <%= @address.longitude.to_f %>) ;
+      zoom_level = 15;
+      clearOverlays();
+    }
     var mapOptions = {
       center: myLatlng,
-      zoom: 3,
+      zoom: zoom_level,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     
     map = new google.maps.Map(document.getElementById("map_canvas"),
-        mapOptions);        
+        mapOptions);  
+    addMarker(myLatlng);
+          
  }
  
  function codeAddress(address, zoom) {
@@ -139,15 +157,59 @@
      if (status == google.maps.GeocoderStatus.OK) {
        map.setZoom(zoom);
        map.setCenter(results[0].geometry.location);
-       var marker = new google.maps.Marker({
-         map: map,
-         position: results[0].geometry.location
-       });
+       clearOverlays();
+       addMarker(results[0].geometry.location);
+       setLatitudeLongitude(results[0].geometry.location);
      } else {
        alert("Address not found for the following reason: " + status);
      }
    });
  }
+ 
+ 
+   function addMarker(location) {
+     console.log(location);
+     var marker = new google.maps.Marker({
+       position: location,
+       map: map,
+       draggable: true,
+       animation: google.maps.Animation.DROP,
+     });
+     markersArray.push(marker);
+     google.maps.event.addListener(marker, 'dragend', function() {
+         latLong = marker.getPosition();
+         setLatitudeLongitude(latLong);
+       });
+     marker.setMap(map);
+   }
+
+   // Removes the overlays from the map, but keeps them in the array
+   function clearOverlays() {
+     if (markersArray) {
+       for (i in markersArray) {
+         markersArray[i].setMap(null);
+       }
+     }
+   }
+
+   // Shows any overlays currently in the array
+   function showOverlays() {
+     if (markersArray) {
+       for (i in markersArray) {
+         markersArray[i].setMap(map);
+       }
+     }
+   }
+
+   // Deletes all markers in the array by removing references to them
+   function deleteOverlays() {
+     if (markersArray) {
+       for (i in markersArray) {
+         markersArray[i].setMap(null);
+       }
+       markersArray.length = 0;
+     }
+   }
  
   function loadScript() {
    var script = document.createElement("script");
@@ -160,12 +222,39 @@
 </script>
 
 <script>
+  
+  $("#address_country").live('change', function(){
+    updateAddress(5);
+  });
+  
+  $("#address_state").live('change', function(){
+    updateAddress(7);
+  });
+
   $("#address_city").live('change', function(){
+    updateAddress(10);
+  });
+  
+  $("#address_street_address").live('change', function(){
+    updateAddress(13);
+  });
+  
+  $("#address_street_address_two").live('change', function(){
+    updateAddress(15)
+  });
+  
+  function updateAddress(zoom){
+    var address = "";
     var state = $("#address_state").val();
     var country = $("#address_country").val();
-    var city = $(this).val();
-    var address = city + ", " + state + ", " + country
-    console.log(address);
-    codeAddress(address, 13);
-  });
+    var city = $("#address_city").val();
+    var street = $("#address_street_address").val();
+    var street2 = $("#address_street_address_two").val();
+    if (street) { address = street + ", " ;}
+    if (street2) { address += street2 + ", " ;}
+    if (city) { address += city + ", " ;}
+    if (state) { address += state + ", " ;}
+    if (country) { address += country;}
+    codeAddress(address, zoom);
+  }
 </script>

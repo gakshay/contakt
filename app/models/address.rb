@@ -3,7 +3,7 @@ require 'net/http'
 class Address < ActiveRecord::Base
   attr_accessible :city, :country, :state, :street_address, :street_address_two, :zipcode, :latitude, :longitude
   attr_accessible :phones_attributes, :faxs_attributes, :emails_attributes, :label
-  validates_presence_of :city, :country, :state, :street_address, :zipcode, :label
+  validates_presence_of :city, :country, :state, :street_address, :zipcode
   
   belongs_to :user
   has_many :phones, :dependent => :destroy
@@ -13,7 +13,7 @@ class Address < ActiveRecord::Base
   accepts_nested_attributes_for :faxs, :allow_destroy => true, :reject_if => lambda { |a| a[:number].blank? }
   accepts_nested_attributes_for :emails, :allow_destroy => true, :reject_if => lambda { |a| a[:email].blank? }
   
-  before_create :find_lat_long
+  #before_create :find_lat_long
   
   
   GMAPS_URL = "http://maps.googleapis.com/maps/api/geocode/json?sensor=true&address="

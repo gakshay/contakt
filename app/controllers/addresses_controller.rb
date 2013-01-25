@@ -35,7 +35,6 @@ class AddressesController < ApplicationController
   # GET /addresses/new.json
   def new
     @address = current_user.addresses.new
-    
     @address.phones.build
     @address.faxs.build
     @address.emails.build
@@ -48,6 +47,9 @@ class AddressesController < ApplicationController
   # GET /addresses/1/edit
   def edit
     @address = current_user.addresses.find(params[:id])
+    @address.phones.build
+    @address.faxs.build
+    @address.emails.build
   end
 
   # POST /addresses
@@ -77,10 +79,13 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.find(params[:id])
     respond_to do |format|
       if @address.update_attributes(params[:address])
-        #format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+        format.html { redirect_to "/#{current_user.name}", notice: 'Address was successfully updated.' }
         format.json { head :no_content }
       else
-        #format.html { render action: "edit" }
+        @address.phones.build
+        @address.faxs.build
+        @address.emails.build
+        format.html { render action: "edit" }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
