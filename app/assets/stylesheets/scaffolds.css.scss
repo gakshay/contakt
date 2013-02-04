@@ -38,8 +38,14 @@ body {
   border-bottom: 3px solid #575757;
   color: #ffffff;
   padding: 10px;
+  .dropdown-menu {
+    li > a{
+      color: #333;
+    }
+  }
   a {
     color: #fff;
     text-decoration: none;
     }
+  
 }
